@@ -1,17 +1,17 @@
 
 function getMessage(a, b) {
-	if (typeof a == 'boolean') {
+	if (typeof a === 'boolean') {
 		if (a) {
 			return "Я попал в " + b;
 		} else {
 			return "Я никуда не попал";
 		}
-	} else if (typeof a == 'number') {
+	} else if (typeof a === 'number') {
 		return "Я прыгнул на " + a * 100 + " сантиметров";
-	} else if (a.constructor == Array) {
+	} else if (a.constructor === Array) {
 		var sum = sumArrayItems(a);
 		return "Я прошёл " + sum + " шагов";
-	}else if (a.constructor == Array && b.constructor == Array) {
+	}else if (a.constructor === Array && b.constructor === Array) {
 		var length = sumMultipliedArrayItems(a, b);
 		return "Я прошёл " + length + " метров";
 	}
@@ -20,9 +20,8 @@ function getMessage(a, b) {
 
 function sumArrayItems(a) {
 	var sum = 0;
-	var i = a.length;
-	while ( i>0 ) {
-		sum += a[--i];
+	for (var i=0; i<a.length; i++)
+		sum += a[i];
 	}
 
 	return sum;
@@ -30,8 +29,7 @@ function sumArrayItems(a) {
 
 function sumMultipliedArrayItems(a, b) {
 	var sum = 0;
-	var i = 0;
-	while ( a[i] && b[i] ) {
+	for (var i=0; i<a.length && i<b.length; i++) {
 		sum += a[i] * b[i];
 	}
 

@@ -382,11 +382,11 @@
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           //console.log('you have won!');
-          msg = ['You have won! You are the real Magick!', 'Just press the spacebar', 'and continue the game!', 'Good luck amigo!!!', , 'Press Space to start'];
+          msg = ['You have won! You are the real Magick!', 'Just press the spacebar', 'and continue the game!', 'Good luck amigo!!!', 'Press Space to start'];
           break;
         case Verdict.FAIL:
           //console.log('you have failed!');
-          msg = ['You have failed and I\'m so sorry!', 'But don\'t lose your mind', 'Be forward my friend!!!', , 'Press Space to start'];
+          msg = ['You have failed and I\'m so sorry!', 'But don\'t lose your mind', 'Be forward my friend!!!', 'Press Space to start'];
           break;
         case Verdict.PAUSE:
           //console.log('game is on pause!');

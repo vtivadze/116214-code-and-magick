@@ -378,19 +378,43 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      var message;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          console.log('you have won!');
+          //console.log('you have won!');
+          message = ['You have won! You are the real Magick!', 'Just press the spacebar', 'and continue the game!', 'Good luck amigo!!!', 'Press Space to start'];
           break;
         case Verdict.FAIL:
-          console.log('you have failed!');
+          //console.log('you have failed!');
+          message = ['You have failed and I\'m so sorry!', 'But don\'t lose your mind', 'Be forward my friend!!!', 'Press Space to start'];
           break;
         case Verdict.PAUSE:
-          console.log('game is on pause!');
+          //console.log('game is on pause!');
+          message = ['Game is on pause!', 'It\'s time for coffee'];
           break;
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
+          //console.log('welcome to the game! Press Space to start');
+          message = ['Welcome to the game!', 'I can move and fly by pressing arrays', 'and if you press shift I\'ll throw fireballs!', 'Press Space to start'];
           break;
+      }
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      this.ctx.fillRect(160, 60, 450, 120);
+
+      this.ctx.fillStyle = '#ffffff';
+      this.ctx.fillRect(150, 50, 450, 120);
+      this.ctx.font = '16px PT Mono';
+      messageFormer(this.ctx, message, 150, 50);
+
+      function messageFormer(ctx, msg, x, y) {
+        for (var i = 0; i < msg.length; i++) {
+          if (i === 0) {
+            ctx.strokeText(msg[i], x + 10, y + 10 + (i + 1) * 18);
+          } else if (i < msg.length - 1) {
+            ctx.strokeText(msg[i], x + 10, y + 20 + (i + 1) * 18);
+          } else {
+            ctx.strokeText(msg[i], x + 10, y + 30 + (i + 1) * 18);
+          }
+        }
       }
     },
 

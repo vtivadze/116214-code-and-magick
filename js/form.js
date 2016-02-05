@@ -110,9 +110,7 @@
   };
 
   function buttonDisableChecking() {
-    if (isReviewFieldsNameEmpty === false && isReviewTextRequired === false) {
-      button.disabled = false;
-    } else if (isReviewFieldsNameEmpty === false && isReviewTextRequired === true && isReviewFieldsTextEmpty === false) {
+    if (isReviewFieldsNameEmpty === false && (isReviewTextRequired === false || isReviewTextRequired === true && isReviewFieldsTextEmpty === false)) {
       button.disabled = false;
     } else {
       button.disabled = true;

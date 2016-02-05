@@ -14,4 +14,16 @@
     evt.preventDefault();
     formContainer.classList.add('invisible');
   };
+
+
+
+  var buttonReviewSubmit = document.getElementsByClassName('review-submit')[0];
+  debugger;
+  buttonReviewSubmit.onsubmit = function(evt) {
+    evt.preventDefault();
+    var reviewMark = document.querySelectorAll('.review-form-group-mark input[checked]')[0].getAttribute('value');
+    var reviewName = document.querySelector('#review-name').value;
+    debugger;
+  };
+
 })();

@@ -33,7 +33,7 @@
   button.setAttribute('disabled', 'disabled');
 
   var reviewText = document.getElementById('review-text');
-  reviewFieldsText.style.display = 'none';
+  reviewFieldsText.classList.add('invisible');
 
   var reviewMarkInputList = document.querySelectorAll('[name="review-mark"]');
 
@@ -48,19 +48,19 @@
         isReviewTextRequired = true;
 
         if (isReviewFieldsTextEmpty === true) {
-          if (reviewFields.style.display === 'none') {
-            reviewFields.style.display = 'inline-block';
+          if (reviewFields.classList.contains('invisible')) {
+            reviewFields.classList.remove('invisible');
           }
-          reviewFieldsText.style.display = 'inline';
+          reviewFieldsText.classList.remove('invisible');
         }
 
       } else {
         reviewText.removeAttribute('required');
         isReviewTextRequired = false;
-        reviewFieldsText.style.display = 'none';
+        reviewFieldsText.classList.add('invisible');
 
-        if (reviewFieldsName.style.display === 'none') {
-          reviewFields.style.display = 'none';
+        if (reviewFieldsName.classList.contains('invisible')) {
+          reviewFields.classList.add('invisible');
         }
 
       }
@@ -71,50 +71,53 @@
 
 
   reviewName.oninput = function(evt) {
-    if (evt.target.value) {
-      isReviewFieldsNameEmpty = false;
-      reviewFieldsName.style.display = 'none';
-      if (reviewFieldsText.style.display === 'none') {
-        reviewFields.style.display = 'none';
-      }
-    } else {
-      isReviewFieldsNameEmpty = true;
-      if (reviewFields.style.display === 'none') {
-        reviewFields.style.display = 'inline-block';
-      }
-      reviewFieldsName.style.display = 'inline';
-    }
-    buttonDisableChecking();
+    buttonDisableChecking('name', evt.target.value);
   };
 
   reviewText.oninput = function(evt) {
-
-    if (evt.target.value) {
-      isReviewFieldsTextEmpty = false;
-      if (isReviewTextRequired) {
-        reviewFieldsText.style.display = 'none';
-        if (reviewFieldsName.style.display === 'none') {
-          reviewFields.style.display = 'none';
-        }
-      }
-    } else {
-      isReviewFieldsTextEmpty = true;
-      if (isReviewTextRequired) {
-        if (reviewFields.style.display === 'none') {
-          reviewFields.style.display = 'inline-block';
-        }
-        reviewFieldsText.style.display = 'inline';
-      }
-    }
-    buttonDisableChecking();
+    buttonDisableChecking('text', evt.target.value);
   };
 
-  function buttonDisableChecking() {
-    if (isReviewFieldsNameEmpty || isReviewTextRequired && isReviewFieldsTextEmpty) {
-      button.disabled = true;
-    } else {
-      button.disabled = false;
+  function buttonDisableChecking(fieldName, fieldValue) {
+
+    switch (fieldName) {
+      case 'name':
+
+        if (fieldValue) {
+          isReviewFieldsNameEmpty = false;
+          reviewFieldsName.classList.add('invisible');
+        } else {
+          isReviewFieldsNameEmpty = true;
+          reviewFieldsName.classList.remove('invisible');
+        }
+
+
+        break;
+      case 'text':
+
+        if (fieldValue) {
+          isReviewFieldsTextEmpty = false;
+          if (isReviewTextRequired) {
+            reviewFieldsText.classList.add('invisible');
+          }
+        } else {
+          isReviewFieldsTextEmpty = true;
+          if (isReviewTextRequired) {
+            reviewFieldsText.classList.remove('invisible');
+          }
+        }
+
+        break;
     }
+
+    if (reviewFieldsName.classList.contains('invisible') && reviewFieldsText.classList.contains('invisible')) {
+      reviewFields.classList.add('invisible');
+    } else {
+      reviewFields.classList.remove('invisible');
+    }
+
+    button.disabled = isReviewFieldsNameEmpty || isReviewTextRequired && isReviewFieldsTextEmpty;
+
   }
 
 })();

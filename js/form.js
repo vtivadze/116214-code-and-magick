@@ -18,9 +18,6 @@
 
 
 
-  var reviewName = document.getElementById('review-name');
-  reviewName.setAttribute('required', 'required');
-
   var reviewFields = document.getElementsByClassName('review-fields')[0];
   var reviewFieldsName = document.getElementsByClassName('review-fields-name')[0];
   var reviewFieldsText = document.getElementsByClassName('review-fields-text')[0];
@@ -32,7 +29,8 @@
   var button = document.querySelector('button[type="submit"');
   button.setAttribute('disabled', 'disabled');
 
-  var reviewText = document.getElementById('review-text');
+  var form = document.querySelector('.review-form');
+  form.elements['review-name'].setAttribute('required', 'required');
   reviewFieldsText.classList.add('invisible');
 
   var reviewMarkInputList = document.querySelectorAll('[name="review-mark"]');
@@ -44,7 +42,7 @@
 
       if (reviewMarkInputValue < 3) {
 
-        reviewText.setAttribute('required', 'required');
+        form.elements['review-text'].setAttribute('required', 'required');
         isReviewTextRequired = true;
 
         if (isReviewFieldsTextEmpty === true) {
@@ -52,7 +50,7 @@
         }
 
       } else {
-        reviewText.removeAttribute('required');
+        form.elements['review-text'].removeAttribute('required');
         isReviewTextRequired = false;
         reviewFieldsText.classList.add('invisible');
       }
@@ -62,46 +60,37 @@
 
 
 
-  reviewName.oninput = function(evt) {
-    buttonDisableChecking('name', evt.target.value);
+  form.elements['review-name'].oninput = function() {
+    buttonDisableChecking();
   };
 
-  reviewText.oninput = function(evt) {
-    buttonDisableChecking('text', evt.target.value);
+  form.elements['review-text'].oninput = function() {
+    buttonDisableChecking();
   };
 
 
 
-  function buttonDisableChecking(fieldName, fieldValue) {
-
-    switch (fieldName) {
-      case 'name':
-
-        if (fieldValue) {
-          isReviewFieldsNameEmpty = false;
-          reviewFieldsName.classList.add('invisible');
-        } else {
-          isReviewFieldsNameEmpty = true;
-          reviewFieldsName.classList.remove('invisible');
-        }
+  function buttonDisableChecking() {
 
 
-        break;
-      case 'text':
+    if (form.elements['review-name'].value) {
+      isReviewFieldsNameEmpty = false;
+      reviewFieldsName.classList.add('invisible');
+    } else {
+      isReviewFieldsNameEmpty = true;
+      reviewFieldsName.classList.remove('invisible');
+    }
 
-        if (fieldValue) {
-          isReviewFieldsTextEmpty = false;
-          if (isReviewTextRequired) {
-            reviewFieldsText.classList.add('invisible');
-          }
-        } else {
-          isReviewFieldsTextEmpty = true;
-          if (isReviewTextRequired) {
-            reviewFieldsText.classList.remove('invisible');
-          }
-        }
-
-        break;
+    if (form.elements['review-text'].value) {
+      isReviewFieldsTextEmpty = false;
+      if (isReviewTextRequired) {
+        reviewFieldsText.classList.add('invisible');
+      }
+    } else {
+      isReviewFieldsTextEmpty = true;
+      if (isReviewTextRequired) {
+        reviewFieldsText.classList.remove('invisible');
+      }
     }
 
     if (reviewFieldsName.classList.contains('invisible') && reviewFieldsText.classList.contains('invisible')) {

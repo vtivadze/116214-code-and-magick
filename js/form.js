@@ -48,9 +48,6 @@
         isReviewTextRequired = true;
 
         if (isReviewFieldsTextEmpty === true) {
-          if (reviewFields.classList.contains('invisible')) {
-            reviewFields.classList.remove('invisible');
-          }
           reviewFieldsText.classList.remove('invisible');
         }
 
@@ -58,11 +55,6 @@
         reviewText.removeAttribute('required');
         isReviewTextRequired = false;
         reviewFieldsText.classList.add('invisible');
-
-        if (reviewFieldsName.classList.contains('invisible')) {
-          reviewFields.classList.add('invisible');
-        }
-
       }
       buttonDisableChecking();
     };
@@ -77,6 +69,8 @@
   reviewText.oninput = function(evt) {
     buttonDisableChecking('text', evt.target.value);
   };
+
+
 
   function buttonDisableChecking(fieldName, fieldValue) {
 

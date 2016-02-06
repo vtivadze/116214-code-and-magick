@@ -62,42 +62,20 @@
     }
 
     if (reviewMarkInputValue < 3) {
-
       form.elements['review-text'].setAttribute('required', 'required');
       isReviewTextRequired = true;
-
-      reviewFieldsText.classList.toggle('invisible', !isReviewFieldsTextEmpty);
-
     } else {
       form.elements['review-text'].removeAttribute('required');
       isReviewTextRequired = false;
-      reviewFieldsText.classList.add('invisible');
     }
 
 
+    isReviewFieldsTextEmpty = form.elements['review-text'].value ? false : true;
+    isReviewFieldsNameEmpty = form.elements['review-name'].value ? false : true;
 
-    if (form.elements['review-name'].value) {
-      isReviewFieldsNameEmpty = false;
-      reviewFieldsName.classList.add('invisible');
-    } else {
-      isReviewFieldsNameEmpty = true;
-      reviewFieldsName.classList.remove('invisible');
-    }
-
-
-
-    if (form.elements['review-text'].value) {
-      isReviewFieldsTextEmpty = false;
-      reviewFieldsText.classList.toggle('invisible', isReviewTextRequired);
-    } else {
-      isReviewFieldsTextEmpty = true;
-      reviewFieldsText.classList.toggle('invisible', !isReviewTextRequired);
-    }
-
-
-
+    reviewFieldsName.classList.toggle('invisible', form.elements['review-name'].value);
+    reviewFieldsText.classList.toggle('invisible', !isReviewTextRequired || !isReviewFieldsTextEmpty);
     reviewFields.classList.toggle('invisible', !(isReviewFieldsNameEmpty || isReviewTextRequired && isReviewFieldsTextEmpty));
-
 
     button.disabled = isReviewFieldsNameEmpty || isReviewTextRequired && isReviewFieldsTextEmpty;
 

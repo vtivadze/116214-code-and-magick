@@ -102,7 +102,7 @@
 
 
 
-    if (reviewFieldsName.classList.contains('invisible') && reviewFieldsText.classList.contains('invisible')) {
+    if (isReviewFieldsNameEmpty === false && isReviewFieldsTextEmpty === false) {
       reviewFields.classList.add('invisible');
     } else {
       reviewFields.classList.remove('invisible');

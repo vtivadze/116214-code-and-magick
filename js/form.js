@@ -42,7 +42,7 @@
     var curYearBirtday = new Date(curYear, BIRTHDAY_MONTH, BIRTHDAY_DAY);
     var lastBirthday = today > curYearBirtday ? curYearBirtday : new Date(curYear - 1, BIRTHDAY_MONTH, BIRTHDAY_DAY);
 
-    var expires = new Date(+today + +today - +lastBirthday);
+    var expires = new Date(+today + today - lastBirthday);
 
     docCookies.setItem('reviewMark', reviewMark, expires);
     docCookies.setItem('reviewName', reviewName, expires);

@@ -18,14 +18,17 @@
 
 
 
-
   var form = document.forms['review-form'];
-  var buttonReviewSubmit = form.elements['review-submit'];
+  var reviewMarks = form['review-marks'].elements;
 
-  buttonReviewSubmit.onsubmit = function(evt) {
+  //get cookies
+  form['review-name'].value = docCookies.getItem('reviewName') ? docCookies.getItem('reviewName') : '';
+  reviewMarks[docCookies.getItem('reviewMark') - 1].checked = docCookies.getItem('reviewMark') ? true : false;
+
+  //set cookies
+  form.onsubmit = function(evt) {
     evt.preventDefault();
 
-    var reviewMarks = form['review-marks'].elements;
     for (var i = 0; i < reviewMarks.length; i++) {
       if (reviewMarks[i].checked === true) {
         var reviewMark = reviewMarks[i].value;
@@ -50,6 +53,8 @@
   };
 
 
+
+  //form validation
   var reviewFields = document.getElementsByClassName('review-fields')[0];
   var reviewFieldsName = document.getElementsByClassName('review-fields-name')[0];
   var reviewFieldsText = document.getElementsByClassName('review-fields-text')[0];

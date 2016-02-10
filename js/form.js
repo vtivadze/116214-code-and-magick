@@ -71,10 +71,9 @@
 
 
 
-  var reviewMarkInputList = document.querySelectorAll('[name="review-mark"]');
 
-  for (var i = 0; i < reviewMarkInputList.length; i++) {
-    reviewMarkInputList[i].onchange = function() {
+  for (var i = 0; i < reviewMarks.length; i++) {
+    reviewMarks[i].onchange = function() {
       buttonDisableChecking();
     };
   }
@@ -91,9 +90,9 @@
 
   function buttonDisableChecking() {
 
-    for (var j = 0; j < reviewMarkInputList.length; j++) {
-      if (reviewMarkInputList[j].checked) {
-        var reviewMarkInputValue = reviewMarkInputList[j].value;
+    for (var j = 0; j < reviewMarks.length; j++) {
+      if (reviewMarks[j].checked) {
+        var reviewMarkInputValue = reviewMarks[j].value;
       }
     }
 
@@ -118,4 +117,5 @@
   }
 
 
+  buttonDisableChecking();
 })();

@@ -23,8 +23,7 @@
   var buttonReviewSubmit = form.elements['review-submit'];
 
   buttonReviewSubmit.onclick = function(evt) {
-    evt.preven
-    tDefault();
+    evt.preventDefault();
 
     var reviewMarks = form['review-marks'].elements;
     for (var i = 0; i < reviewMarks.length; i++) {
@@ -62,7 +61,6 @@
   var button = document.querySelector('button[type="submit"');
   button.setAttribute('disabled', 'disabled');
 
-  var form = document.querySelector('.review-form');
   form.elements['review-name'].setAttribute('required', 'required');
   reviewFieldsText.classList.add('invisible');
 

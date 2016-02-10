@@ -22,7 +22,7 @@
   var form = document.forms['review-form'];
   var buttonReviewSubmit = form.elements['review-submit'];
 
-  buttonReviewSubmit.onclick = function(evt) {
+  buttonReviewSubmit.onsubmit = function(evt) {
     evt.preventDefault();
 
     var reviewMarks = form['review-marks'].elements;

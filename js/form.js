@@ -19,7 +19,7 @@
 
 
   var form = document.forms['review-form'];
-  var reviewMarks = form['review-marks'].elements;
+  var reviewMarks = form['review-mark'];
 
   //get cookies
   form['review-name'].value = docCookies.getItem('reviewName') ? docCookies.getItem('reviewName') : '';

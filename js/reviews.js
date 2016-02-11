@@ -18,8 +18,7 @@
     var template = document.querySelector('#review-template');
 
     var element = null;
-    //if (content in template)
-    if (template.content) {
+    if ('content' in template) {
       element = template.content.children[0].cloneNode(true);
     } else {
       element = template.children[0].cloneNode(true);
@@ -37,14 +36,14 @@
       element.querySelector('.review-author').src = reviewAuthorImg.src;
     };
     reviewAuthorImg.onerror = function() {
-      element.querySelector('.review-author').classList.add('');
+      element.querySelector('.review-author').classList.add('review-load-failure');
     };
     reviewAuthorImg.src = data.author.picture;
 
     var IMG_TIMEOUT = 10000;
     var imgLoadTimeout = setTimeout(function() {
       reviewAuthorImg.src = '';
-      element.querySelector('.review-author').classList.add('');
+      element.querySelector('.review-author').classList.add('review-load-failure');
     }, IMG_TIMEOUT);
 
     element.classList.add('review');

@@ -23,7 +23,7 @@
 
   //get cookies
   form['review-name'].value = docCookies.getItem('reviewName') ? docCookies.getItem('reviewName') : '';
-  if (docCookies.getItem('reviewMark')) {
+  if (docCookies.hasItem('reviewMark')) {
     reviewMarks[docCookies.getItem('reviewMark') - 1].checked = docCookies.getItem('reviewMark') ? true : false;
   }
 

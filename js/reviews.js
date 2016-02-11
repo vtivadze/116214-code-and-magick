@@ -1,4 +1,3 @@
-/* global reviews: true; */
 'use strict';
 
 (function() {
@@ -6,13 +5,47 @@
   var reviewsFilter = document.getElementsByClassName('reviews-filter')[0];
   reviewsFilter.classList.add('invisible');
 
-  var reviewsList = document.getElementsByClassName('reviews-list')[0];
+  var reviewsSection = document.querySelector('.reviews');
 
-  var reviewListItem = null;
-  reviews.forEach(function(review) {
-    reviewListItem = getElementFromTemplate(review);
-    reviewsList.appendChild(reviewListItem);
-  });
+  getReviews();
+
+  function renderReviews(reviews) {
+    var reviewsList = document.getElementsByClassName('reviews-list')[0];
+    var reviewsFragment = document.createDocumentFragment();
+    var reviewListItem = null;
+    reviews.forEach(function(review) {
+      reviewListItem = getElementFromTemplate(review);
+      reviewsFragment.appendChild(reviewListItem);
+    });
+    reviewsSection.classList.remove('reviews-list-loading');
+    reviewsList.appendChild(reviewsFragment);
+  }
+
+  function getReviews() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '//o0.github.io/assets/json/reviews.json');
+    xhr.timeout = 10000;
+
+    xhr.onload = function(evt) {
+      var rawData = evt.target.response;
+      var loadedReviews = JSON.parse(rawData);
+
+      renderReviews(loadedReviews);
+    };
+
+    xhr.onerror = function() {
+      reviewsSection.classList.remove('reviews-list-loading');
+      reviewsSection.classList.add('reviews-load-failure');
+    };
+
+    xhr.ontimeout = function() {
+      reviewsSection.classList.remove('reviews-list-loading');
+      reviewsSection.classList.add('reviews-load-failure');
+    };
+
+    reviewsSection.classList.add('reviews-list-loading');
+    xhr.send();
+  }
 
   function getElementFromTemplate(data) {
     var template = document.querySelector('#review-template');

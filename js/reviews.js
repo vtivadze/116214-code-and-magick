@@ -5,7 +5,7 @@
   var NO_MORE = '<h1>There is no more data!</h1>';
   var pageCount;
   var currentPage = 0;
-  var ADD_PAGE_REGIME = false;
+  var ADD_PAGE_REGIME = true;
   var REVIEWS_PER_PAGE = 3;
   var filteredReviews = [];
   var reviewsSection = document.querySelector('.reviews');
@@ -22,11 +22,10 @@
     }
   };
 
-//debugger;
   getReviews();
 
-  var reviewsTitle = document.querySelector('.reviews-title');
-  reviewsTitle.onclick = function() {
+  var more = document.querySelector('.reviews-controls-more');
+  more.onclick = function() {
     if (filteredReviews.length > 0) {
       renderReviews(filteredReviews);
     }
@@ -53,6 +52,7 @@
       reviewsList.innerHTML = NO_MORE;
       currentPage = 0;
       activeFilter = '';
+      more.classList.add('invisible');
     }
     reviewsSection.classList.remove('reviews-list-loading');
     reviewsList.appendChild(reviewsFragment);
@@ -64,6 +64,7 @@
     }
     var sortedReviews = reviewsAll.slice(0);
 
+    more.classList.remove('invisible');
     var PERIOD_DAY_COUNT = 14;
     var GOOD_RATING = 3;
 

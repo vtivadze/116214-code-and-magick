@@ -1,6 +1,51 @@
 'use strict';
 
 (function() {
+
+  var footer = document.querySelector('footer');
+  var footerTopCur;
+  var footerTopOld = 0;
+
+  var STEP_UP = 80;
+  var SETP_DOWN = -80;
+  var stepForward = STEP_UP;
+  var DIMENSION = 'px';
+  var newPos;
+
+  var clouds = document.querySelector('.header-clouds');
+  var cloudsBottom;
+
+  var demo = document.querySelector('.demo');
+  var demoBottom;
+
+  var scrollTimeout;
+  window.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(function() {
+
+      demoBottom = demo.getBoundingClientRect().bottom;
+      if (demoBottom <= 0) {
+        game.setGameStatus(window.Game.Verdict.PAUSE);
+      }
+
+      cloudsBottom = clouds.getBoundingClientRect().bottom;
+      if (cloudsBottom > 0) {
+
+        var curPos = clouds.style.backgroundPosition;
+        footerTopCur = footer.getBoundingClientRect().top;
+
+        if (footerTopOld) {
+          stepForward = footerTopOld - footerTopCur > 0 ? STEP_UP : SETP_DOWN;
+        }
+
+        footerTopOld = footerTopCur;
+        newPos = curPos === '' ? stepForward : +curPos.slice(0, curPos.indexOf(' ') - 2) + stepForward;
+        clouds.style.backgroundPosition = newPos + DIMENSION;
+      }
+    }, 40);
+  });
+
   /**
    * @const
    * @type {number}

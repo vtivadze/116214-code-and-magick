@@ -19,7 +19,7 @@
   var demoBottom;
 
   var scrolling = function() {
-
+    console.log('scroll event');
     demoBottom = demo.getBoundingClientRect().bottom;
     if (demoBottom <= 0) {
       game.setGameStatus(window.Game.Verdict.PAUSE);
@@ -43,9 +43,10 @@
   };
 
   var scrollTimeout;
-  window.addEventListener('scroll', function(evt) {
-    evt.preventDefault();
+
+  window.addEventListener('scroll', function() {
     clearTimeout(scrollTimeout);
+    console.log('scroll event');
     scrollTimeout = setTimeout(scrolling, 20);
   });
 

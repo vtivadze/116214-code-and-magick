@@ -13,40 +13,40 @@
   var newPos;
 
   var clouds = document.querySelector('.header-clouds');
-  clouds.style.transitionProperty = 'backgrouond-position';
-  clouds.style.transitionDuration = '150ms';
-  clouds.style.transitionTimingFunction = 'cubic-bezier(0,.57,.99,.46)';
   var cloudsBottom;
 
   var demo = document.querySelector('.demo');
   var demoBottom;
 
+  var scrolling = function() {
+
+    demoBottom = demo.getBoundingClientRect().bottom;
+    if (demoBottom <= 0) {
+      game.setGameStatus(window.Game.Verdict.PAUSE);
+    }
+
+    cloudsBottom = clouds.getBoundingClientRect().bottom;
+    if (cloudsBottom > 0) {
+
+      var curPos = clouds.style.backgroundPosition;
+      footerTopCur = footer.getBoundingClientRect().top;
+
+      if (footerTopOld) {
+        step = footerTopOld - footerTopCur > 0 ? STEP_RIGHT : SETP_LEFT;
+      }
+
+      footerTopOld = footerTopCur;
+      newPos = curPos === '' ? step : +curPos.slice(0, curPos.indexOf(' ') - 2) + step;
+      clouds.style.backgroundPosition = newPos + DIMENSION;
+    }
+
+  };
+
   var scrollTimeout;
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function(evt) {
+    evt.preventDefault();
     clearTimeout(scrollTimeout);
-
-    scrollTimeout = setTimeout(function() {
-
-      demoBottom = demo.getBoundingClientRect().bottom;
-      if (demoBottom <= 0) {
-        game.setGameStatus(window.Game.Verdict.PAUSE);
-      }
-
-      cloudsBottom = clouds.getBoundingClientRect().bottom;
-      if (cloudsBottom > 0) {
-
-        var curPos = clouds.style.backgroundPosition;
-        footerTopCur = footer.getBoundingClientRect().top;
-
-        if (footerTopOld) {
-          step = footerTopOld - footerTopCur > 0 ? STEP_RIGHT : SETP_LEFT;
-        }
-
-        footerTopOld = footerTopCur;
-        newPos = curPos === '' ? step : +curPos.slice(0, curPos.indexOf(' ') - 2) + step;
-        clouds.style.backgroundPosition = newPos + DIMENSION;
-      }
-    }, 20);
+    scrollTimeout = setTimeout(scrolling, 20);
   });
 
   /**
